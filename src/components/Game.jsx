@@ -25,7 +25,7 @@ class Game extends Component{
     }
 
     decision = (playerChoice)=> {
-        const choices = ["ROCK", "PAPER", "SCISSORS"];
+        const choices = ["KŐ", "PAPÍR", "OLLÓ"];
         const compChoice =  choices[Math.floor(Math.random() * choices.length)];
         const val = this.logic(playerChoice, compChoice)
         if(val == 1) {
@@ -54,23 +54,23 @@ class Game extends Component{
         const {playerVal, computerVal, playerScore, compScore} = this.state;
         return(
             <div className="container">
-                <h1>Welcome to Rock, Paper, Scissors Game</h1>
+                <h1>Kő papír olló játék</h1>
                 <div >
-                    <button onClick={()=>this.decision("ROCK")}>
-                        <i className={`fas fa-hand-rock`} /> Rock
+                    <button onClick={()=>this.decision("KŐ")}>
+                        <i className={`fas fa-hand-rock`} /> KŐ
                     </button>
-                    <button onClick={()=>this.decision("PAPER")}>
-                        <i className={`fas fa-hand-paper`} /> Paper
+                    <button onClick={()=>this.decision("PAPÍR")}>
+                        <i className={`fas fa-hand-paper`} /> PAPÍR
                     </button>
-                    <button onClick={()=>this.decision("SCISSORS")}>
-                        <i className={`fas fa-hand-scissors`} />  Scissors 
+                    <button onClick={()=>this.decision("OLLÓ")}>
+                        <i className={`fas fa-hand-scissors`} />  OLLÓ 
                     </button>
                 </div>
                 <div className="content">
-                    <p>Your choice: {playerVal}</p>
-                    <p>Computer's choice: {computerVal}</p>
-                    <h2>Your Score:{playerScore}</h2>
-                    <h2>Computer Score: {compScore}</h2>
+                    <p>Te válaszod: {playerVal}</p>
+                    <p>Ellenfél válasza: {computerVal}</p>
+                    <h2>Te pontod:{playerScore}</h2>
+                    <h2>Ellenfél pontja: {compScore}</h2>
                 </div>
             </div>
         )

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CardGame from './components/PacManGame';
+import CardGame from './components/Game';
 import QrGenerator from './components/QrGenerator';
 class App extends Component {
   state = {
@@ -12,7 +12,7 @@ class App extends Component {
         {}
         <div className="text-center m-4">
           <button onClick={() => this.setState({activeTab: "qr"})} className="spa-btn">QR Generátor</button>
-          <button onClick={() => this.setState({activeTab: "game"})} className="spa-btn">Kártyajáték</button>
+          <button onClick={() => this.setState({activeTab: "game"})} className="spa-btn">Kő-papír-olló játék</button>
         </div>
 
         <hr />

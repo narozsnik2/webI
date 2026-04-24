@@ -22,7 +22,7 @@ export default function QrGenerator() {
 
   return (
     <div className="app-card">
-      <h1>QR Code Generator</h1>
+      <h1>QR Code Generátor</h1>
       <div className="input-box">
         <div className="gen">
           <input
