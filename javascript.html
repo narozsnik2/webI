@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>JS CRUD - Webprogramozás-1</title>
+  
+    <link rel="stylesheet" href="style.css"> </head>
+<body>
+    <div class="container">
+        <h1>Webprogramozás-1 Előadás Házi feladat</h1>
+        
+        <nav> 
+            <ul id="menu1">
+                <li><a href="index.html">Főoldal</a></li>
+                <li><a href="javascript.html">javascript</a></li>
+                <li><a href="react.html">react</a></li>
+                <li><a href="spa.html">spa</a></li>
+                <li><a href="fetchapi.html">fetchapi</a></li>
+                <li><a href="axios.html">axios</a></li>
+                <li><a href="oojs.html">oojs</a></li>
+            </ul>
+        </nav>
+
+        <div class="diak-content">
+            <h2>JavaScript CRUD - Diákok kezelése</h2>
+            <hr>
+            
+            <div class="diak-form">
+                <form onsubmit="event.preventDefault(); onFormSubmit();">
+                    <div>
+                        <label>Azonosító (az)</label>
+                        <input type="text" id="az">
+                    </div>
+                    <div>
+                        <label>Név (nev)*</label>
+                        <label class="validation-error hide" id="nevError">A név megadása kötelező!</label>
+                        <input type="text" id="nev">
+                    </div>
+                    <div>
+                        <label>Osztály (osztaly)</label>
+                        <input type="text" id="osztaly">
+                    </div>
+                    <div class="form-action-buttons">
+                        <input type="submit" value="Diák mentése">
+                    </div>
+                </form>
+            </div>
+        
+            <table id="diakLista">
+                <thead>
+                    <tr>
+                        <th>Azonosító</th>
+                        <th>Név</th>
+                        <th>Osztály</th>
+                        <th>Műveletek</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+
+   
+</body>
+</html>
+
+<script>
+var selectedIndex = null;
+
+document.addEventListener("DOMContentLoaded", function() {
+    printArray();
+});
+
+var diakok = [
+    {"az": "4", "nev": "Török Nóra", "osztaly": "2001B"},
+    {"az": "7", "nev": "Reményfi Márton", "osztaly": "2001B"},
+    {"az": "8", "nev": "Kispál Béle", "osztaly": "2001B"},
+    {"az": "9", "nev": "Ferdinandy Petra", "osztaly": "2001B"},
+    {"az": "10", "nev": "Pánczél Éva", "osztaly": "2001B"},
+    {"az": "1050", "nev": "Márton Anna", "osztaly": "2007A"},
+    {"az": "1051", "nev": "Illés Péter", "osztaly": "2007A"}
+];
+
+function printArray() {
+
+    var table = document.getElementById("diakLista").getElementsByTagName('tbody')[0];
+    table.innerHTML = "";
+    
+    diakok.forEach((item, index) => {
+        var newRow = table.insertRow();
+        newRow.insertCell(0).innerHTML = item.az;
+        newRow.insertCell(1).innerHTML = item.nev;
+        newRow.insertCell(2).innerHTML = item.osztaly;
+        newRow.insertCell(3).innerHTML = `
+            <button onclick="onEdit(${index})">Szerkeszt</button>
+            <button onclick="onDelete(${index})">Töröl</button>
+        `;
+    });
+}
+
+function onFormSubmit() {
+    if (validate()) {
+        var formData = readFormData();
+        if (selectedIndex == null) {
+            diakok.push(formData);
+        } else {
+            diakok[selectedIndex] = formData;
+        }
+        resetForm();
+        printArray();
+    }
+}
+
+function readFormData() {
+    return {
+        az: document.getElementById("az").value,
+        nev: document.getElementById("nev").value,
+        osztaly: document.getElementById("osztaly").value
+    };
+}
+
+function onEdit(index) {
+    var adat = diakok[index];
+    document.getElementById("az").value = adat.az;
+    document.getElementById("nev").value = adat.nev;
+    document.getElementById("osztaly").value = adat.osztaly;
+    selectedIndex = index;
+}
+
+function onDelete(index) {
+    if (confirm('Biztosan törölni szeretnéd ezt a diákot?')) {
+        diakok.splice(index, 1);
+        printArray();
+        resetForm();
+    }
+}
+
+function resetForm() {
+    document.getElementById("az").value = "";
+    document.getElementById("nev").value = "";
+    document.getElementById("osztaly").value = "";
+    selectedIndex = null;
+    document.getElementById("nevError").classList.add("hide");
+}
+
+function validate() {
+    let isValid = true;
+    if (document.getElementById("nev").value == "") {
+        isValid = false;
+        document.getElementById("nevError").classList.remove("hide");
+    } else {
+        document.getElementById("nevError").classList.add("hide");
+    }
+    return isValid;
+}
+</script>

@@ -1,0 +1,46 @@
+body {
+    background-color: #ffffff;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+div {
+    width: 960px;
+    margin: 0px auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+#menu1 { 
+    float: left; 
+    width: 100%; 
+    padding: 0; 
+    margin: 0 0 1em 0; 
+    list-style-type: none;
+    background-color: #000;
+}
+
+#menu1 li { 
+    display: inline; 
+}
+
+#menu1 a {
+    float: left;
+    padding: 0.5em 1em;
+    color: #DDD;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+#menu1 a:hover { 
+    background-color: red;
+    color: white;
+}
+
+
+p {
+    clear: both;
+    padding-top: 20px;
+}
