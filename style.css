@@ -91,6 +91,57 @@ button, .button, .choice-button {
     transition: 0.2s ease;
 }
 
+.spa::after{
+    content: "Kikapcsolódás";
+}
+.spa:hover::after{
+    content: "Spa";
+}
+
+.javascript::after{
+    content: "Tanulók CRUD"
+}
+
+.javascript:hover::after{
+    content: "Javascript";
+}
+
+.react::after{
+    content: "Tankönyv nyilvántartás";
+}
+
+.react:hover::after{
+    content: "React";
+}
+
+
+.fetchapi::after{
+    content: "fetcHApi";
+}
+
+.fetchapi:hover::after {
+    content: "Fetchapi";
+}
+
+.axios::after{
+    content:"AXios"
+}
+
+.axios:hover::after{
+    content:"Axios"
+}
+
+.oojs::after{
+    content: "oOjs";
+}
+
+.oojs:hover::after{
+    content:"Oojs";
+
+}
+
+
+
 button:hover {
     background: #4338ca;
     transform: translateY(-2px);

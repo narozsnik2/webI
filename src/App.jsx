@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import CardGame from './components/Game';
 import QrGenerator from './components/QrGenerator';
+import Tankonyvek from "./components/Tankonyvek";
+
 class App extends Component {
   state = {
     activeTab: "qr"
@@ -23,6 +25,8 @@ class App extends Component {
           <CardGame />
         )}
       </div>
+
+      
     );
   }
 }
