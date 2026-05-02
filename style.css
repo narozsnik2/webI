@@ -132,7 +132,7 @@ button, .button, .choice-button {
 }
 
 .oojs::after{
-    content: "oOjs";
+    content: "Grafikus menü";
 }
 
 .oojs:hover::after{

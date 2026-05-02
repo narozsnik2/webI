@@ -14,9 +14,9 @@ class Game extends Component{
     logic = (playerVal, computerVal)=>{
         if(playerVal == computerVal){
             return 0;
-        } else if ((playerVal == "ROCK" && computerVal == "SCISSORS") ||
-            (playerVal == "SCISSORS" && computerVal == "PAPER") ||
-            (playerVal == "PAPER" && computerVal == "ROCK")
+        } else if ((playerVal == "KŐ" && computerVal == "OLLÓ") ||
+            (playerVal == "OLLÓ" && computerVal == "PAPÍR") ||
+            (playerVal == "PAPÍR" && computerVal == "KŐ")
         ) {
             return 1;
         } else {
