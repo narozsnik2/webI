@@ -99,7 +99,7 @@ button, .button, .choice-button {
 }
 
 .javascript::after{
-    content: "Tanulók CRUD"
+    content: "Tanulók"
 }
 
 .javascript:hover::after{
@@ -107,7 +107,7 @@ button, .button, .choice-button {
 }
 
 .react::after{
-    content: "Tankönyv nyilvántartás";
+    content: "Tankönyvek";
 }
 
 .react:hover::after{
@@ -116,7 +116,7 @@ button, .button, .choice-button {
 
 
 .fetchapi::after{
-    content: "fetcHApi";
+    content: "Diák adatbázis";
 }
 
 .fetchapi:hover::after {
@@ -124,7 +124,7 @@ button, .button, .choice-button {
 }
 
 .axios::after{
-    content:"AXios"
+    content:"Tankönyv bázis"
 }
 
 .axios:hover::after{

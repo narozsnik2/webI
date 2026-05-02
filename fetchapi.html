@@ -22,7 +22,7 @@
         </nav>
 
         <div>
-            <h2>Fetch API - Diák CRUD alkalmazás</h2>
+            <h2>Diákok nyilvántartása</h2>
         
             <p id="message"></p>
             <h3 id="addedit"></h3>
@@ -44,7 +44,7 @@
             <table border="1">
                 <thead>
                     <tr>
-                        <th>Az</th>
+                        <th>Azonosító</th>
                         <th>Név</th>
                         <th>Osztály</th>
                         <th>Műveletek</th>
@@ -58,11 +58,7 @@
 <script>
   const api = "http://localhost/fetchapi/diakok.php";
 console.log("API:", api);
-fetch(api)
-  .then(res => {
-      console.log("STATUS:", res.status);
-      return res.json();
-  })
+
 
 
 
