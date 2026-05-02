@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Fetchapi</title>
+  
+    <link rel="stylesheet" href="style.css"> </head>
+<body>
+    <div class="container">
+        <h1>Webprogramozás-1 Előadás Házi feladat</h1>
+        
+        <nav> 
+            <ul id="menu1">
+                <li><a href="index.html">Főoldal</a></li>
+                <li><a href="javascript.html" class="javascript"> </a></li>
+                <li><a href="react.html" class="react"></a></li>
+                <li><a href="spa.html" class="spa" ></a></li>
+                <li><a href="fetchapi.html" class="fetchapi"></a></li>
+                <li><a href="axios.html" class="axios"></a></li>
+                <li><a href="oojs.html" class="oojs"></a></li>
+            </ul>
+        </nav>
+
+        <div>
+            <h2>Fetch API - Diák CRUD alkalmazás</h2>
+        
+            <p id="message"></p>
+            <h3 id="addedit"></h3>
+        
+            <form id="diakForm">
+                <input type="hidden" id="az">
+        
+                <div>
+                    <input type="text" id="nev" placeholder="Név" required>
+                </div>
+        
+                <div>
+                    <input type="text" id="osztaly" placeholder="Osztály" required>
+                </div>
+        
+                <button>Mentés</button>
+            </form>
+        
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Az</th>
+                        <th>Név</th>
+                        <th>Osztály</th>
+                        <th>Műveletek</th>
+                    </tr>
+                </thead>
+        
+                <tbody id="diakTable"></tbody>
+            </table>
+        </div>
+
+<script>
+  const api = "http://localhost/fetchapi/diakok.php";
+console.log("API:", api);
+fetch(api)
+  .then(res => {
+      console.log("STATUS:", res.status);
+      return res.json();
+  })
+
+
+
+  document.getElementById("diakForm").addEventListener("submit", saveDiak);
+  window.onload = fetchDiakok;
+  
+function fetchDiakok() {
+    fetch(api)
+        .then(res => res.json())
+        .then(data => {
+
+            console.log("SERVER:", data);
+
+            const lista = data.readData || [];
+            console.log(lista);
+            let rows = "";
+
+            if (lista.length === 0) {
+                rows = "<tr><td colspan='4'>Nincs adat</td></tr>";
+            }
+
+            lista.forEach(diak => {
+                rows += `
+                <tr>
+                    <td>${diak.az}</td>
+                    <td>${diak.nev}</td>
+                    <td>${diak.osztaly}</td>
+                    <td>
+                        <button onclick='editDiak(${JSON.stringify(diak)})'>Edit</button>
+                        <button onclick='deleteDiak(${diak.az})'>Delete</button>
+                    </td>
+                </tr>`;
+            });
+
+            document.getElementById("diakTable").innerHTML = rows;
+        })
+        .catch(err => console.log("HIBA:", err));
+}
+
+
+function saveDiak(e) {
+    e.preventDefault();
+
+    const az = document.getElementById("az").value;
+    const nev = document.getElementById("nev").value;
+    const osztaly = document.getElementById("osztaly").value;
+
+    const data = { az, nev, osztaly };
+
+    const method = az ? "PUT" : "POST";
+
+    fetch(api, {
+        method: method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("message").innerText = data.status;
+
+        document.getElementById("diakForm").reset();
+        document.getElementById("az").value = "";
+
+        fetchDiakok();
+    });
+}
+
+
+function editDiak(diak) {
+    document.getElementById("message").innerText = "";
+    document.getElementById("addedit").innerHTML = "Diák szerkesztése";
+
+    document.getElementById("az").value = diak.az;
+    document.getElementById("nev").value = diak.nev;
+    document.getElementById("osztaly").value = diak.osztaly;
+}
+
+
+function deleteDiak(az) {
+
+    if (!confirm("Biztos törlöd?")) return;
+
+    fetch(api, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ az })
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("message").innerText = data.status;
+        fetchDiakok();
+    });
+}
+
+</script>
+   
+</body>
+</html>
+
