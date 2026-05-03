@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const API_URL = "http://localhost/fetchapi/tk.php";
+const api = "http://www.njewebeadando.nhely.hu/fetchapi/tk.php";
 
 function TkAxios() {
     const [konyvek, setKonyvek] = useState([]);
@@ -11,17 +11,21 @@ function TkAxios() {
     useEffect(() => { loadKonyvek(); }, []);
 
     const loadKonyvek = async () => {
-        const res = await axios.get(API_URL);
-        setKonyvek(res.data.data);
+        const res = await axios.get(api);
+        console.log(res.data);
+
+        setKonyvek(res.data.data || []);
     };
 
     const handleSave = async (e) => {
         e.preventDefault();
+
         if (isEdit) {
-            await axios.put(API_URL, form);
+            await axios.put(api, form);
         } else {
-            await axios.post(API_URL, form);
+            await axios.post(api, form);
         }
+
         setForm({ az: '', kiadoikod: '', cim: '', targy: '' });
         setIsEdit(false);
         loadKonyvek();
@@ -29,7 +33,7 @@ function TkAxios() {
 
     const deleteKonyv = async (az) => {
         if (window.confirm("Törli ezt a könyvet?")) {
-            await axios.delete(API_URL, { data: { az } });
+            await axios.delete(api, { data: { az } });
             loadKonyvek();
         }
     };
@@ -40,16 +44,36 @@ function TkAxios() {
     };
 
     return (
-        <div className="container">
+        <div>
             <h2>Tankönyv adatbázis</h2>
-            
-            <form onSubmit={handleSave} style={{marginBottom: '20px'}}>
-                <input type="number" placeholder="ID" value={form.az} onChange={e => setForm({...form, az: e.target.value})} disabled={isEdit} required />
-                <input type="text" placeholder="Kiadói kód" value={form.kiadoikod} onChange={e => setForm({...form, kiadoikod: e.target.value})} required />
-                <input type="text" placeholder="Cím" value={form.cim} onChange={e => setForm({...form, cim: e.target.value})} required />
-                <input type="text" placeholder="Tárgy" value={form.targy} onChange={e => setForm({...form, targy: e.target.value})} required />
+
+            <form onSubmit={handleSave}>
+                <input type="number" placeholder="ID"
+                    value={form.az}
+                    onChange={e => setForm({ ...form, az: e.target.value })}
+                    disabled={isEdit}
+                    required
+                />
+
+                <input type="text" placeholder="Kiadói kód"
+                    value={form.kiadoikod}
+                    onChange={e => setForm({ ...form, kiadoikod: e.target.value })}
+                    required
+                />
+
+                <input type="text" placeholder="Cím"
+                    value={form.cim}
+                    onChange={e => setForm({ ...form, cim: e.target.value })}
+                    required
+                />
+
+                <input type="text" placeholder="Tárgy"
+                    value={form.targy}
+                    onChange={e => setForm({ ...form, targy: e.target.value })}
+                    required
+                />
+
                 <button type="submit">{isEdit ? "Módosítás" : "Hozzáadás"}</button>
-                {isEdit && <button onClick={() => {setIsEdit(false); setForm({az:'', kiadoikod:'', cim:'', targy:''})}}>Mégse</button>}
             </form>
 
             <table border="1" width="100%">

@@ -4,7 +4,10 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json; charset=UTF-8");
 
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') exit;
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 require "db.php";
 $method = $_SERVER['REQUEST_METHOD'];
@@ -12,8 +15,13 @@ $input = json_decode(file_get_contents("php://input"), true);
 
 switch ($method) {
     case 'GET':
-        $stmt = $pdo->query("SELECT * FROM tk");
-        echo json_encode(["status" => "OK", "data" => $stmt->fetchAll()]);
+        $stmt = $pdo->query("SELECT az, kiadoikod, cim, targy FROM tk");
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        echo json_encode([
+            "status" => "OK",
+            "data" => $data
+        ]);
         break;
 
     case 'POST':
